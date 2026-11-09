@@ -1,0 +1,52 @@
+#!/bin/bash
+#PBS -P personal-leyaozhang-nus
+#PBS -N dsa5208_gpu_bench
+#PBS -l select=1:ncpus=4:mpiprocs=1:ngpus=1:mem=24gb
+#PBS -l walltime=04:00:00
+#PBS -j oe
+set -euo pipefail
+cd "${PBS_O_WORKDIR:?}"
+source /etc/profile.d/modules.sh 2>/dev/null || true
+bash build_gpu.sh
+module load nvhpc-hpcx-cuda12/26.1
+export OMP_TARGET_OFFLOAD=MANDATORY
+export OMP_NUM_THREADS=1
+export CUDA_VISIBLE_DEVICES="${CUDA_VISIBLE_DEVICES:-0}"
+mkdir -p results_gpu/logs
+if [[ -e results_gpu/gpu_benchmark.csv || -e results_gpu/gpu_summary.csv ]]; then
+  echo "ERROR: Existing GPU benchmark results found. Refusing to overwrite."
+  exit 1
+fi
+# 1 GPU, 1 rank: size sensitivity; matched 4096x4096, 1000-step baseline.
+# The 64x64 case is for overhead characterization, not speedup claims.
+for N in 64 512 1024 2048 4096; do
+  for rep in 1 2 3; do
+    log="results_gpu/logs/gpu_N${N}_S1000_R1_rep${rep}.log"
+    echo "Running N=$N Steps=1000 Ranks=1 Repeat=$rep"
+    if mpirun -np 1 ./hybrid_gpu "$N" 1000 > "$log" 2>&1; then
+      python3 collect_gpu_results.py --log "$log" --csv results_gpu/gpu_benchmark.csv --n "$N" --steps 1000 --ranks 1 --gpus 1 --repeat "$rep" --mode single_gpu
+    else
+      echo "FAILED: $log" >&2
+      cat "$log" >&2
+      exit 1
+    fi
+  done
+done
+# Optional single-GPU rank contention study (NOT multi-GPU strong scaling).
+# Submit with: qsub -v TEST_SHARED_RANKS=1 gpu_benchmark.pbs
+if [[ "${TEST_SHARED_RANKS:-0}" == "1" ]]; then
+  for ranks in 2 4; do
+    for rep in 1 2 3; do
+      log="results_gpu/logs/gpu_N4096_S1000_R${ranks}_rep${rep}.log"
+      if mpirun -np "$ranks" ./hybrid_gpu 4096 1000 > "$log" 2>&1; then
+        python3 collect_gpu_results.py --log "$log" --csv results_gpu/gpu_benchmark.csv --n 4096 --steps 1000 --ranks "$ranks" --gpus 1 --repeat "$rep" --mode shared_gpu
+      else
+        echo "FAILED: $log" >&2
+        cat "$log" >&2
+        exit 1
+      fi
+    done
+  done
+fi
+python3 summarize_gpu_results.py results_gpu/gpu_benchmark.csv results_gpu/gpu_summary.csv
+echo 'Benchmark complete: results_gpu/gpu_benchmark.csv and gpu_summary.csv'

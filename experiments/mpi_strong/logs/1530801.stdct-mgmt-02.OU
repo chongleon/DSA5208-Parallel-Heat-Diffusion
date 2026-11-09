@@ -1,0 +1,31 @@
+Loading OpenMPI/4.1.4-GCC-11.3.0
+  Loading requirement: GCCcore/11.3.0 zlib/1.2.12-GCCcore-11.3.0
+    binutils/2.38-GCCcore-11.3.0 GCC/11.3.0 ncurses/6.3-GCCcore-11.3.0
+    numactl/2.0.14-GCCcore-11.3.0 XZ/5.2.5-GCCcore-11.3.0
+    libxml2/2.9.13-GCCcore-11.3.0 libpciaccess/0.16-GCCcore-11.3.0
+    hwloc/2.7.1-GCCcore-11.3.0 OpenSSL/1.1 libevent/2.1.12-GCCcore-11.3.0
+    libfabric/1.15.1-GCCcore-11.3.0 PMIx/4.1.2-GCCcore-11.3.0
+    UCX/1.12.1-GCCcore-11.3.0 UCC/1.0.0-GCCcore-11.3.0
+=== Environment ===
+JobID=1530801.stdct-mgmt-02
+Host=CN-125
+MPI_Module=OpenMPI/4.1.4-GCC-11.3.0
+CompilerFlags=-O3 -std=c++17
+Allocated nodes:
+     32 cn-125.stdct.loc
+     32 cn-146.stdct.loc
+=== Compile MPI ===
+=== Strong Scaling P=64 ===
+Starting P=64 Repeat=1 at 2026-11-07T22:41:49+08:00
+flatpak: symbol lookup error: /lib64/librpmio.so.9: undefined symbol: lzma_stream_encoder_mt, version XZ_5.2
+flatpak: symbol lookup error: /lib64/librpmio.so.9: undefined symbol: lzma_stream_encoder_mt, version XZ_5.2
+Completed P=64 Repeat=1 Runtime=0.996200
+Starting P=64 Repeat=2 at 2026-11-07T22:42:56+08:00
+flatpak: symbol lookup error: /lib64/librpmio.so.9: undefined symbol: lzma_stream_encoder_mt, version XZ_5.2
+flatpak: symbol lookup error: /lib64/librpmio.so.9: undefined symbol: lzma_stream_encoder_mt, version XZ_5.2
+Completed P=64 Repeat=2 Runtime=0.986414
+Starting P=64 Repeat=3 at 2026-11-07T22:43:05+08:00
+flatpak: symbol lookup error: /lib64/librpmio.so.9: undefined symbol: lzma_stream_encoder_mt, version XZ_5.2
+flatpak: symbol lookup error: /lib64/librpmio.so.9: undefined symbol: lzma_stream_encoder_mt, version XZ_5.2
+Completed P=64 Repeat=3 Runtime=1.018050
+=== Finished ===

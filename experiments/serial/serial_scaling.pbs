@@ -1,0 +1,47 @@
+
+#!/bin/bash
+#PBS -P personal-leyaozhang-nus
+#PBS -N serial_scaling
+#PBS -l select=1:ncpus=1:mpiprocs=1:ompthreads=1:mem=6gb
+#PBS -l walltime=00:30:00
+#PBS -j oe
+
+set -e
+
+# Enter the directory from which qsub was submitted
+cd "$PBS_O_WORKDIR"
+
+echo "=== Serial Scaling Experiment ==="
+echo "Node: $(hostname)"
+echo "CPU: $(lscpu | grep 'Model name:' | head -n 1)"
+echo "Compiler: $(g++ --version | head -n 1)"
+echo "Build flags: -O3 -std=c++17"
+echo "PBS Job ID: $PBS_JOBID"
+
+# Compile serial program
+g++ -O3 -std=c++17 serial.cpp -o serial
+
+# Save each individual run
+echo "N,GridCells,Steps,Run,RuntimeSeconds" > serial_scaling.csv
+
+for N in 512 1024 2048 4096; do
+    for run in 1 2 3; do
+
+        output=$(./serial "$N" 1000)
+
+        runtime=$(printf '%s\n' "$output" |
+            awk -F= '/^Runtime=/{print $2}')
+
+        if [ -z "$runtime" ]; then
+            echo "ERROR: Missing runtime for N=$N Run=$run"
+            exit 1
+        fi
+
+        echo "$N,$((N * N)),1000,$run,$runtime" >> serial_scaling.csv
+
+        echo "N=$N Run=$run Runtime=$runtime"
+
+    done
+done
+
+echo "=== Finished ==="

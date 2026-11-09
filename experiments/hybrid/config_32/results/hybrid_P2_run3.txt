@@ -1,0 +1,8 @@
+N=4096
+Steps=1000
+Ranks=2
+Threads=16
+TotalCores=32
+Runtime=7.6323707700
+CommunicationTime=1.9361452280
+ComputationTime=6.1748674810

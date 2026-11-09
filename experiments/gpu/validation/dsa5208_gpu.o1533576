@@ -1,0 +1,25 @@
+Loading nvhpc-hpcx-cuda12/26.1
+  Loading requirement: hpcx
+main:
+    141, #omp target
+        141, Generating "nvkernel_main_F1L141_2" GPU kernel
+    141, Generating map(from:on_host) 
+    190, #omp target teams distribute parallel for
+        190, Generating "nvkernel_main_F1L190_4" GPU kernel
+        195, Loop parallelized across teams and threads(128), schedule(static)
+    190, Generating map(to:old_ptr[:elements]) 
+         Generating map(tofrom:new_ptr[:elements]) 
+Loading nvhpc-hpcx-cuda12/26.1
+  Loading requirement: hpcx
+GPUOffload=PASS
+N=64
+Steps=100
+Ranks=1
+Threads=1
+TotalCores=1
+Runtime=0.003928
+CommunicationTime=0.000004
+ComputationTime=0.003917
+Shape: 64 x 64
+Maximum Absolute Error: 1.3322676295501878e-15
+Validation: PASS

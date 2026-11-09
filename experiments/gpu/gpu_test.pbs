@@ -1,0 +1,20 @@
+#!/bin/bash
+#PBS -P personal-leyaozhang-nus
+#PBS -N dsa5208_gpu
+#PBS -l select=1:ncpus=4:mpiprocs=1:ngpus=1:mem=16gb
+#PBS -l walltime=00:15:00
+#PBS -j oe
+set -euo pipefail
+cd "${PBS_O_WORKDIR:?}"
+# Adjust the queue or resource request if your Vanda account requires it.
+source /etc/profile.d/modules.sh 2>/dev/null || true
+bash build_gpu.sh
+
+# Load the same MPI environment for execution
+module load nvhpc-hpcx-cuda12/26.1
+
+export OMP_TARGET_OFFLOAD=MANDATORY
+export OMP_NUM_THREADS=1
+# Use one MPI rank for the first correctness test on one GPU.
+mpirun -np 1 ./hybrid_gpu 64 100 --validate
+python3 validate_gpu.py --reference mpi_result.csv --candidate hybrid_gpu_result.csv --atol 1e-10

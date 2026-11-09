@@ -1,0 +1,6 @@
+Ranks,N,JobID,JobScript
+1,512,1532829.stdct-mgmt-02,/scratch/leyaozhang-nus/DSA5208_Project3/experiments/mpi_weak/jobs/weak_1.pbs
+4,1024,1532830.stdct-mgmt-02,/scratch/leyaozhang-nus/DSA5208_Project3/experiments/mpi_weak/jobs/weak_4.pbs
+16,2048,1532831.stdct-mgmt-02,/scratch/leyaozhang-nus/DSA5208_Project3/experiments/mpi_weak/jobs/weak_16.pbs
+64,4096,1532832.stdct-mgmt-02,/scratch/leyaozhang-nus/DSA5208_Project3/experiments/mpi_weak/jobs/weak_64.pbs
+256,8192,1532833.stdct-mgmt-02,/scratch/leyaozhang-nus/DSA5208_Project3/experiments/mpi_weak/jobs/weak_256.pbs

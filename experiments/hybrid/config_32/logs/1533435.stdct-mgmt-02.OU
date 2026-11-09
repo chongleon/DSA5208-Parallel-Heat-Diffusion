@@ -1,0 +1,37 @@
+Loading OpenMPI/4.1.4-GCC-11.3.0
+  Loading requirement: GCCcore/11.3.0 zlib/1.2.12-GCCcore-11.3.0
+    binutils/2.38-GCCcore-11.3.0 GCC/11.3.0 ncurses/6.3-GCCcore-11.3.0
+    numactl/2.0.14-GCCcore-11.3.0 XZ/5.2.5-GCCcore-11.3.0
+    libxml2/2.9.13-GCCcore-11.3.0 libpciaccess/0.16-GCCcore-11.3.0
+    hwloc/2.7.1-GCCcore-11.3.0 OpenSSL/1.1 libevent/2.1.12-GCCcore-11.3.0
+    libfabric/1.15.1-GCCcore-11.3.0 PMIx/4.1.2-GCCcore-11.3.0
+    UCX/1.12.1-GCCcore-11.3.0 UCC/1.0.0-GCCcore-11.3.0
+=== Environment ===
+JobID=1533435.stdct-mgmt-02
+Node=CN-154
+Ranks=1
+Threads=32
+TotalCores=32
+N=4096
+Steps=1000
+MPI_Module=OpenMPI/4.1.4-GCC-11.3.0
+CompilerFlags=-O3 -fopenmp -std=c++17
+Allocated nodes:
+      1 cn-154.stdct.loc
+CPU affinity:
+pid 1237763's current affinity list: 0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,52,54,56,58,60,62
+=== Compile Hybrid ===
+=== Hybrid P=1 T=32 ===
+Starting Repeat=1 at 2026-11-08T20:25:46+08:00
+flatpak: symbol lookup error: /lib64/librpmio.so.9: undefined symbol: lzma_stream_encoder_mt, version XZ_5.2
+Rank=0 Threads=32 AssignedCPUs=0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,52,54,56,58,60,62
+Completed P=1 Repeat=1 Runtime=1.7743759880
+Starting Repeat=2 at 2026-11-08T20:25:52+08:00
+flatpak: symbol lookup error: /lib64/librpmio.so.9: undefined symbol: lzma_stream_encoder_mt, version XZ_5.2
+Rank=0 Threads=32 AssignedCPUs=0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,52,54,56,58,60,62
+Completed P=1 Repeat=2 Runtime=1.6993090820
+Starting Repeat=3 at 2026-11-08T20:25:55+08:00
+flatpak: symbol lookup error: /lib64/librpmio.so.9: undefined symbol: lzma_stream_encoder_mt, version XZ_5.2
+Rank=0 Threads=32 AssignedCPUs=0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,52,54,56,58,60,62
+Completed P=1 Repeat=3 Runtime=1.7050274500
+=== Finished ===

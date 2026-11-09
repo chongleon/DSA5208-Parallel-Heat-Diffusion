@@ -1,0 +1,82 @@
+
+#!/bin/bash
+#PBS -P personal-leyaozhang-nus
+#PBS -N hybrid_taskset
+#PBS -l select=1:ncpus=32:mpiprocs=4:ompthreads=8:mem=32gb
+#PBS -l walltime=00:05:00
+#PBS -j oe
+
+set -euo pipefail
+
+cd "$PBS_O_WORKDIR" || exit 1
+module load OpenMPI/4.1.4-GCC-11.3.0 || exit 1
+
+export OMP_NUM_THREADS=8
+export OMP_DYNAMIC=FALSE
+export OMP_PLACES=cores
+export OMP_PROC_BIND=close
+
+echo "=== Taskset 32-Core Pilot ==="
+echo "Node=$(hostname)"
+echo "JobID=$PBS_JOBID"
+echo "Started=$(date -Is)"
+
+# Read the CPUs actually allowed by PBS.
+mapfile -t CPUS < <(
+  python3 - <<'PY'
+import os
+for cpu in sorted(os.sched_getaffinity(0)):
+    print(cpu)
+PY
+)
+
+if [[ "${#CPUS[@]}" -ne 32 ]]; then
+  echo "ERROR: Expected 32 allowed CPUs, found ${#CPUS[@]}"
+  exit 1
+fi
+
+echo "Allowed CPUs: ${CPUS[*]}"
+
+# Create a launcher that runs once per MPI rank.
+cat > taskset_rank_launcher.sh <<'LAUNCHER'
+#!/bin/bash
+set -euo pipefail
+
+RANK="${OMPI_COMM_WORLD_RANK:?Missing MPI rank}"
+
+mapfile -t CPUS < <(
+  python3 - <<'PY'
+import os
+for cpu in sorted(os.sched_getaffinity(0)):
+    print(cpu)
+PY
+)
+
+if [[ "${#CPUS[@]}" -ne 32 ]]; then
+  echo "ERROR: Rank $RANK sees ${#CPUS[@]} CPUs, expected 32"
+  exit 1
+fi
+
+START=$((RANK * 8))
+CPU_LIST=$(IFS=,; echo "${CPUS[*]:START:8}")
+
+echo "Rank=$RANK AssignedCPUs=$CPU_LIST"
+
+exec taskset -c "$CPU_LIST" "$@"
+LAUNCHER
+
+chmod +x taskset_rank_launcher.sh
+
+echo "=== MPI Rank Affinity Test ==="
+
+timeout 60s mpirun -np 4 --bind-to none \
+  ./taskset_rank_launcher.sh \
+  bash -c 'echo "Rank=$OMPI_COMM_WORLD_RANK"; taskset -pc $$'
+
+echo "=== Hybrid Test ==="
+
+timeout 120s mpirun -np 4 --bind-to none \
+  ./taskset_rank_launcher.sh \
+  ../validation/hybrid_validation 512 100
+
+echo "=== Finished ==="

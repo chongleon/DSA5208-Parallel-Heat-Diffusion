@@ -1,0 +1,71 @@
+#!/bin/bash
+#PBS -P personal-leyaozhang-nus
+#PBS -N hybrid32_rerun
+#PBS -l select=1:ncpus=32:mpiprocs=32:ompthreads=1:mem=32gb
+#PBS -l walltime=00:30:00
+#PBS -j oe
+
+set -euo pipefail
+
+BASE="/scratch/$USER/DSA5208_Project3/experiments/hybrid/config_32"
+cd "$PBS_O_WORKDIR"
+
+module load OpenMPI/4.1.4-GCC-11.3.0
+
+mkdir -p results
+
+export OMP_DYNAMIC=FALSE
+export OMP_PLACES=cores
+export OMP_PROC_BIND=close
+
+echo "=== Hybrid 32-Core Rerun ==="
+echo "JobID=$PBS_JOBID"
+echo "Node=$(hostname)"
+echo "CPU Model:"
+lscpu | grep -E "Model name|NUMA node"
+echo "PBS CPU Affinity:"
+taskset -pc $$
+
+for P in 2 4 8; do
+
+    THREADS=$((32 / P))
+    export OMP_NUM_THREADS=$THREADS
+
+    CSV="results/rerun_P${P}.csv"
+
+    if [[ -e "$CSV" ]]; then
+        echo "ERROR: Existing result $CSV"
+        exit 1
+    fi
+
+    echo "Ranks,Threads,TotalCores,N,Steps,Repeat,Runtime,CommunicationTime,ComputationTime" > "$CSV"
+
+    for REP in 1 2 3; do
+
+        echo "=== P=$P Threads=$THREADS Repeat=$REP ==="
+
+        OUT=$(timeout 300s mpirun -np "$P" --bind-to none \
+            "$BASE/taskset_rank_launcher.sh" \
+            "$BASE/bin/hybrid_P${P}" 4096 1000)
+
+        printf '%s\n' "$OUT" > "results/rerun_P${P}_run${REP}.txt"
+
+        RUNTIME=$(printf '%s\n' "$OUT" | awk -F= '/^Runtime=/{print $2}')
+        COMM=$(printf '%s\n' "$OUT" | awk -F= '/^CommunicationTime=/{print $2}')
+        COMP=$(printf '%s\n' "$OUT" | awk -F= '/^ComputationTime=/{print $2}')
+
+        if [[ -z "$RUNTIME" || -z "$COMM" || -z "$COMP" ]]; then
+            echo "ERROR: Missing timing fields"
+            exit 1
+        fi
+
+        printf '%s,%s,%s,%s,%s,%s,%s,%s,%s\n' \
+            "$P" "$THREADS" 32 4096 1000 \
+            "$REP" "$RUNTIME" "$COMM" "$COMP" >> "$CSV"
+
+        echo "Completed P=$P Repeat=$REP Runtime=$RUNTIME"
+
+    done
+done
+
+echo "=== Finished ==="

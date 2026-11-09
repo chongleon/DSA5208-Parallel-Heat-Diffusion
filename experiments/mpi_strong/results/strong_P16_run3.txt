@@ -1,0 +1,6 @@
+N=4096
+Steps=1000
+Ranks=16
+Runtime=2.380647
+CommunicationTime=0.437748
+ComputationTime=2.194257

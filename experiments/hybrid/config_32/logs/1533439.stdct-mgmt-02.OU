@@ -1,0 +1,82 @@
+Loading OpenMPI/4.1.4-GCC-11.3.0
+  Loading requirement: GCCcore/11.3.0 zlib/1.2.12-GCCcore-11.3.0
+    binutils/2.38-GCCcore-11.3.0 GCC/11.3.0 ncurses/6.3-GCCcore-11.3.0
+    numactl/2.0.14-GCCcore-11.3.0 XZ/5.2.5-GCCcore-11.3.0
+    libxml2/2.9.13-GCCcore-11.3.0 libpciaccess/0.16-GCCcore-11.3.0
+    hwloc/2.7.1-GCCcore-11.3.0 OpenSSL/1.1 libevent/2.1.12-GCCcore-11.3.0
+    libfabric/1.15.1-GCCcore-11.3.0 PMIx/4.1.2-GCCcore-11.3.0
+    UCX/1.12.1-GCCcore-11.3.0 UCC/1.0.0-GCCcore-11.3.0
+=== Environment ===
+JobID=1533439.stdct-mgmt-02
+Node=CN-145
+Ranks=16
+Threads=2
+TotalCores=32
+N=4096
+Steps=1000
+MPI_Module=OpenMPI/4.1.4-GCC-11.3.0
+CompilerFlags=-O3 -fopenmp -std=c++17
+Allocated nodes:
+     16 cn-145.stdct.loc
+CPU affinity:
+pid 849740's current affinity list: 9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,39,41,43,45,47,49,51,53,55,57,59,61,63,65,67,69,71
+=== Compile Hybrid ===
+=== Hybrid P=16 T=2 ===
+Starting Repeat=1 at 2026-11-08T20:25:53+08:00
+flatpak: symbol lookup error: /lib64/librpmio.so.9: undefined symbol: lzma_stream_encoder_mt, version XZ_5.2
+Rank=0 Threads=2 AssignedCPUs=9,11
+Rank=1 Threads=2 AssignedCPUs=13,15
+Rank=2 Threads=2 AssignedCPUs=17,19
+Rank=3 Threads=2 AssignedCPUs=21,23
+Rank=4 Threads=2 AssignedCPUs=25,27
+Rank=5 Threads=2 AssignedCPUs=29,31
+Rank=6 Threads=2 AssignedCPUs=33,35
+Rank=7 Threads=2 AssignedCPUs=37,39
+Rank=8 Threads=2 AssignedCPUs=41,43
+Rank=9 Threads=2 AssignedCPUs=45,47
+Rank=10 Threads=2 AssignedCPUs=49,51
+Rank=11 Threads=2 AssignedCPUs=53,55
+Rank=12 Threads=2 AssignedCPUs=57,59
+Rank=15 Threads=2 AssignedCPUs=69,71
+Rank=13 Threads=2 AssignedCPUs=61,63
+Rank=14 Threads=2 AssignedCPUs=65,67
+Completed P=16 Repeat=1 Runtime=1.8835120260
+Starting Repeat=2 at 2026-11-08T20:25:59+08:00
+flatpak: symbol lookup error: /lib64/librpmio.so.9: undefined symbol: lzma_stream_encoder_mt, version XZ_5.2
+Rank=0 Threads=2 AssignedCPUs=9,11
+Rank=1 Threads=2 AssignedCPUs=13,15
+Rank=2 Threads=2 AssignedCPUs=17,19
+Rank=3 Threads=2 AssignedCPUs=21,23
+Rank=4 Threads=2 AssignedCPUs=25,27
+Rank=5 Threads=2 AssignedCPUs=29,31
+Rank=6 Threads=2 AssignedCPUs=33,35
+Rank=7 Threads=2 AssignedCPUs=37,39
+Rank=8 Threads=2 AssignedCPUs=41,43
+Rank=10 Threads=2 AssignedCPUs=49,51
+Rank=9 Threads=2 AssignedCPUs=45,47
+Rank=11 Threads=2 AssignedCPUs=53,55
+Rank=12 Threads=2 AssignedCPUs=57,59
+Rank=13 Threads=2 AssignedCPUs=61,63
+Rank=14 Threads=2 AssignedCPUs=65,67
+Rank=15 Threads=2 AssignedCPUs=69,71
+Completed P=16 Repeat=2 Runtime=1.8863735050
+Starting Repeat=3 at 2026-11-08T20:26:05+08:00
+flatpak: symbol lookup error: /lib64/librpmio.so.9: undefined symbol: lzma_stream_encoder_mt, version XZ_5.2
+Rank=0 Threads=2 AssignedCPUs=9,11
+Rank=1 Threads=2 AssignedCPUs=13,15
+Rank=2 Threads=2 AssignedCPUs=17,19
+Rank=3 Threads=2 AssignedCPUs=21,23
+Rank=4 Threads=2 AssignedCPUs=25,27
+Rank=5 Threads=2 AssignedCPUs=29,31
+Rank=7 Threads=2 AssignedCPUs=37,39
+Rank=6 Threads=2 AssignedCPUs=33,35
+Rank=8 Threads=2 AssignedCPUs=41,43
+Rank=9 Threads=2 AssignedCPUs=45,47
+Rank=10 Threads=2 AssignedCPUs=49,51
+Rank=11 Threads=2 AssignedCPUs=53,55
+Rank=12 Threads=2 AssignedCPUs=57,59
+Rank=13 Threads=2 AssignedCPUs=61,63
+Rank=14 Threads=2 AssignedCPUs=65,67
+Rank=15 Threads=2 AssignedCPUs=69,71
+Completed P=16 Repeat=3 Runtime=1.8759512500
+=== Finished ===

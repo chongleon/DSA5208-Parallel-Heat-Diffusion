@@ -1,0 +1,10 @@
+Ranks,JobID,JobScript
+1,1530795.stdct-mgmt-02,/scratch/leyaozhang-nus/DSA5208_Project3/experiments/mpi_strong/jobs/strong_1.pbs
+2,1530796.stdct-mgmt-02,/scratch/leyaozhang-nus/DSA5208_Project3/experiments/mpi_strong/jobs/strong_2.pbs
+4,1530797.stdct-mgmt-02,/scratch/leyaozhang-nus/DSA5208_Project3/experiments/mpi_strong/jobs/strong_4.pbs
+8,1530798.stdct-mgmt-02,/scratch/leyaozhang-nus/DSA5208_Project3/experiments/mpi_strong/jobs/strong_8.pbs
+16,1530799.stdct-mgmt-02,/scratch/leyaozhang-nus/DSA5208_Project3/experiments/mpi_strong/jobs/strong_16.pbs
+32,1530800.stdct-mgmt-02,/scratch/leyaozhang-nus/DSA5208_Project3/experiments/mpi_strong/jobs/strong_32.pbs
+64,1530801.stdct-mgmt-02,/scratch/leyaozhang-nus/DSA5208_Project3/experiments/mpi_strong/jobs/strong_64.pbs
+128,1530802.stdct-mgmt-02,/scratch/leyaozhang-nus/DSA5208_Project3/experiments/mpi_strong/jobs/strong_128.pbs
+256,1530803.stdct-mgmt-02,/scratch/leyaozhang-nus/DSA5208_Project3/experiments/mpi_strong/jobs/strong_256.pbs

@@ -1,0 +1,35 @@
+
+#!/bin/bash
+#PBS -P personal-leyaozhang-nus
+#PBS -N mpi_pilot64
+#PBS -l select=2:ncpus=32:mpiprocs=32:ompthreads=1:mem=32gb
+#PBS -l walltime=00:15:00
+#PBS -j oe
+
+set -e
+
+cd "$PBS_O_WORKDIR" || exit 1
+
+echo "=== MPI 64-Rank Cross-Node Pilot ==="
+echo "PBS Job: $PBS_JOBID"
+echo "Node: $(hostname)"
+echo "Allocated nodes:"
+sort "$PBS_NODEFILE" | uniq -c
+
+echo "=== Load MPI ==="
+date '+%F %T - Before module load'
+module load OpenMPI/4.1.4-GCC-11.3.0 || exit 1
+date '+%F %T - After module load'
+
+echo "=== Compile ==="
+date '+%F %T - Before compilation'
+mpicxx -O3 -std=c++17 mpi.cpp -o mpi || exit 1
+date '+%F %T - After compilation'
+
+echo "=== Run MPI ==="
+export OMP_NUM_THREADS=1
+date '+%F %T - Before mpirun'
+mpirun -np 64 ./mpi 512 100 || exit 1
+date '+%F %T - After mpirun'
+
+echo "=== Finished ==="

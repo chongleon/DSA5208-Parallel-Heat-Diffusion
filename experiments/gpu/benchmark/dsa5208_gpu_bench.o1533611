@@ -1,0 +1,44 @@
+Loading nvhpc-hpcx-cuda12/26.1
+  Loading requirement: hpcx
+main:
+    141, #omp target
+        141, Generating "nvkernel_main_F1L141_2" GPU kernel
+    141, Generating map(from:on_host) 
+    190, #omp target teams distribute parallel for
+        190, Generating "nvkernel_main_F1L190_4" GPU kernel
+        195, Loop parallelized across teams and threads(128), schedule(static)
+    190, Generating map(to:old_ptr[:elements]) 
+         Generating map(tofrom:new_ptr[:elements]) 
+Loading nvhpc-hpcx-cuda12/26.1
+  Loading requirement: hpcx
+Running N=64 Steps=1000 Ranks=1 Repeat=1
+Recorded: results_gpu/logs/gpu_N64_S1000_R1_rep1.log
+Running N=64 Steps=1000 Ranks=1 Repeat=2
+Recorded: results_gpu/logs/gpu_N64_S1000_R1_rep2.log
+Running N=64 Steps=1000 Ranks=1 Repeat=3
+Recorded: results_gpu/logs/gpu_N64_S1000_R1_rep3.log
+Running N=512 Steps=1000 Ranks=1 Repeat=1
+Recorded: results_gpu/logs/gpu_N512_S1000_R1_rep1.log
+Running N=512 Steps=1000 Ranks=1 Repeat=2
+Recorded: results_gpu/logs/gpu_N512_S1000_R1_rep2.log
+Running N=512 Steps=1000 Ranks=1 Repeat=3
+Recorded: results_gpu/logs/gpu_N512_S1000_R1_rep3.log
+Running N=1024 Steps=1000 Ranks=1 Repeat=1
+Recorded: results_gpu/logs/gpu_N1024_S1000_R1_rep1.log
+Running N=1024 Steps=1000 Ranks=1 Repeat=2
+Recorded: results_gpu/logs/gpu_N1024_S1000_R1_rep2.log
+Running N=1024 Steps=1000 Ranks=1 Repeat=3
+Recorded: results_gpu/logs/gpu_N1024_S1000_R1_rep3.log
+Running N=2048 Steps=1000 Ranks=1 Repeat=1
+Recorded: results_gpu/logs/gpu_N2048_S1000_R1_rep1.log
+Running N=2048 Steps=1000 Ranks=1 Repeat=2
+Recorded: results_gpu/logs/gpu_N2048_S1000_R1_rep2.log
+Running N=2048 Steps=1000 Ranks=1 Repeat=3
+Recorded: results_gpu/logs/gpu_N2048_S1000_R1_rep3.log
+Running N=4096 Steps=1000 Ranks=1 Repeat=1
+Recorded: results_gpu/logs/gpu_N4096_S1000_R1_rep1.log
+Running N=4096 Steps=1000 Ranks=1 Repeat=2
+Recorded: results_gpu/logs/gpu_N4096_S1000_R1_rep2.log
+Running N=4096 Steps=1000 Ranks=1 Repeat=3
+Recorded: results_gpu/logs/gpu_N4096_S1000_R1_rep3.log
+Benchmark complete: results_gpu/gpu_benchmark.csv and gpu_summary.csv

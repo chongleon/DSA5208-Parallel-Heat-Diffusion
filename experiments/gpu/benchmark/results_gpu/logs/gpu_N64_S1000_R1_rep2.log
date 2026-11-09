@@ -1,0 +1,9 @@
+GPUOffload=PASS
+N=64
+Steps=1000
+Ranks=1
+Threads=1
+TotalCores=1
+Runtime=0.038828
+CommunicationTime=0.000030
+ComputationTime=0.038735

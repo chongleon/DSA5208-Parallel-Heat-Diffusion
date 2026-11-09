@@ -1,0 +1,7 @@
+Ranks,Threads,JobID,JobScript
+1,32,1533435.stdct-mgmt-02,/scratch/leyaozhang-nus/DSA5208_Project3/experiments/hybrid/config_32/jobs/hybrid_P1.pbs
+2,16,1533436.stdct-mgmt-02,/scratch/leyaozhang-nus/DSA5208_Project3/experiments/hybrid/config_32/jobs/hybrid_P2.pbs
+4,8,1533437.stdct-mgmt-02,/scratch/leyaozhang-nus/DSA5208_Project3/experiments/hybrid/config_32/jobs/hybrid_P4.pbs
+8,4,1533438.stdct-mgmt-02,/scratch/leyaozhang-nus/DSA5208_Project3/experiments/hybrid/config_32/jobs/hybrid_P8.pbs
+16,2,1533439.stdct-mgmt-02,/scratch/leyaozhang-nus/DSA5208_Project3/experiments/hybrid/config_32/jobs/hybrid_P16.pbs
+32,1,1533440.stdct-mgmt-02,/scratch/leyaozhang-nus/DSA5208_Project3/experiments/hybrid/config_32/jobs/hybrid_P32.pbs

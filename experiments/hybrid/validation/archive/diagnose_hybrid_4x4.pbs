@@ -1,0 +1,26 @@
+#!/bin/bash
+#PBS -P personal-leyaozhang-nus
+#PBS -N hybrid_diag4x4
+#PBS -l select=1:ncpus=16:mpiprocs=4:ompthreads=4:mem=32gb
+#PBS -l walltime=00:08:00
+#PBS -j oe
+
+set -euo pipefail
+
+cd "$PBS_O_WORKDIR" || exit 1
+module load OpenMPI/4.1.4-GCC-11.3.0 || exit 1
+
+export OMP_NUM_THREADS=4
+export OMP_DYNAMIC=FALSE
+
+# Diagnostic only: disable binding temporarily
+export OMP_PROC_BIND=FALSE
+
+echo "=== Hybrid 4x4 Diagnostic ==="
+date '+%F %T - Before mpirun'
+
+timeout 180s mpirun -np 4 --bind-to none \
+  ./hybrid_validation 64 1 --validate
+
+date '+%F %T - After mpirun'
+echo "=== Diagnostic Finished ==="

@@ -1,0 +1,26 @@
+
+#!/bin/bash
+#PBS -P personal-leyaozhang-nus
+#PBS -N mpi_pilot32
+#PBS -l select=1:ncpus=32:mpiprocs=32:ompthreads=1:mem=32gb
+#PBS -l walltime=00:10:00
+#PBS -j oe
+
+set -e
+
+cd "$PBS_O_WORKDIR" || exit 1
+
+module load OpenMPI/4.1.4-GCC-11.3.0 || exit 1
+
+echo "=== MPI 32-Rank Pilot ==="
+echo "Node: $(hostname)"
+echo "Job: $PBS_JOBID"
+
+# Compile with the same MPI environment
+mpicxx -O3 -std=c++17 mpi.cpp -o mpi || exit 1
+
+# Small functional test, not a formal benchmark
+export OMP_NUM_THREADS=1
+mpirun -np 32 ./mpi 512 100 || exit 1
+
+echo "=== Finished ==="
